@@ -1,6 +1,6 @@
 import http from 'axios';
 
-const apiUrl = 'http://localhost:5000/api';
+const apiUrl = process.env.REACT_APP_API_URL;
 const apiEndpoint = apiUrl + '/expense-categories';
 
 async function find(params) {
