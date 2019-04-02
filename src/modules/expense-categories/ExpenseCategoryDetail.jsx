@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {Divider} from 'antd'
 
-import ItemDetail from './ItemDetail';
+import ItemDetail from './ExpenseCategoryItem';
 import * as itemService from '../../services/ExpenseCategoryService';
 
 class ExpenseCategoryDetail extends Component {
@@ -36,7 +37,7 @@ class ExpenseCategoryDetail extends Component {
       <React.Fragment>
         <ItemDetail data={this.state.data} />
         <Link
-          className="btn btn-primary"
+          className="ant-btn"
           to={`/expense-categories/edit/${this.props.match.params.id}`}
         >
           Edit
@@ -54,11 +55,11 @@ class ExpenseCategoryDetail extends Component {
       <React.Fragment>
         <h2>Detail</h2>
         <h4>Expense Category</h4>
-        <hr />
+        <Divider />
         {this.state.status === 1
           ? this.renderOnSuccess()
           : this.renderOnFailure()}
-        <Link className="btn btn-link" to="/expense-categories">
+        <Link style={{ marginLeft: 8 }} to="/expense-categories">
           Back to List
         </Link>
       </React.Fragment>

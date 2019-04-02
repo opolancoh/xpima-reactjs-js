@@ -4,27 +4,52 @@ const apiUrl = process.env.REACT_APP_API_URL;
 const apiEndpoint = apiUrl + '/expense-categories';
 
 async function find(params) {
-  let url = `${apiEndpoint}`;
-  if (params) url += `?${params}`;
-  return await http.get(url);
+  try {
+    let url = `${apiEndpoint}`;
+    if (params) url += `?${params}`;
+    return await http.get(url);
+  } catch (ex) {
+    console.log('ExpenseCategoryService:find', ex);
+    throw new Error(ex.message);
+  }
 }
 
 async function findById(id, params) {
-  let url = `${apiEndpoint}/${id}`;
-  if (params) url += `?${params}`;
-  return await http.get(url);
+  try {
+    let url = `${apiEndpoint}/${id}`;
+    if (params) url += `?${params}`;
+    return await http.get(url);
+  } catch (ex) {
+    console.log('ExpenseCategoryService:findById', ex);
+    throw new Error(ex.message);
+  }
 }
 
 async function create(item) {
-  return await http.post(`${apiEndpoint}`, item);
+  try {
+    return await http.post(`${apiEndpoint}`, item);
+  } catch (ex) {
+    console.log('ExpenseCategoryService:create', ex);
+    throw new Error(ex.message);
+  }
 }
 
 async function update(id, item) {
-  return await http.put(`${apiEndpoint}/${id}`, item);
+  try {
+    return await http.put(`${apiEndpoint}/${id}`, item);
+  } catch (ex) {
+    console.log('ExpenseCategoryService:update', ex);
+    throw new Error(ex.message);
+  }
 }
 
 async function remove(id) {
-  return await http.delete(`${apiEndpoint}/${id}`);
+  try {
+    return await http.delete(`${apiEndpoint}/${id}`);
+  } catch (ex) {
+    console.log('ExpenseCategoryService:remove', ex);
+    throw new Error(ex.message);
+  }
 }
 
 export { find, findById, create, update, remove };
