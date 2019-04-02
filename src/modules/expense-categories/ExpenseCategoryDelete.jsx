@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Divider } from 'antd';
 
-import ItemDetail from './ItemDetail';
+import ItemDetail from './ExpenseCategoryItem';
 import * as itemService from '../../services/ExpenseCategoryService';
+import { notificationBox } from '../../_common/AppMessages.js';
 
-class ExpenseCategoryDelete extends Component {
+class ExpenseCategoryDetail extends Component {
   constructor(props) {
     super(props);
     this.state = { status: 0 };
@@ -12,28 +14,6 @@ class ExpenseCategoryDelete extends Component {
 
   async componentDidMount() {
     await this.loadData();
-  }
-
-  async handleRemove(e) {
-    e.preventDefault();
-
-    try {
-      const id = this.props.match.params.id;
-      const { data } = await itemService.remove(id);
-      if (data.status === 'success') {
-        this.props.history.push('/expense-categories');
-      } else if (data.status === 'failure') {
-        /*const errors = {};
-        data.errors.forEach(item => {
-          errors[item.field] = item.message;
-        });
-        this.setState({ errors });*/
-      } else if (data.status === 'error') {
-        console.log('error', data);
-      }
-    } catch (ex) {
-      console.log('ex', ex);
-    }
   }
 
   async loadData() {
@@ -57,9 +37,9 @@ class ExpenseCategoryDelete extends Component {
     return (
       <React.Fragment>
         <ItemDetail data={this.state.data} />
-        <button className="btn btn-primary" onClick={(e) => this.handleRemove(e)}>
+        <Button type="primary" onClick={this.handleRemove}>
           Delete
-        </button>
+        </Button>
       </React.Fragment>
     );
   }
@@ -68,17 +48,37 @@ class ExpenseCategoryDelete extends Component {
     return <h5>{this.state.message}</h5>;
   }
 
+  handleRemove = async e => {
+    e.preventDefault();
+
+    try {
+      const id = this.props.match.params.id;
+      const { data } = await itemService.remove(id);
+      if (data.status === 'success') {
+        this.props.history.push('/expense-categories');
+      } else {
+        console.log(
+          'ExpenseCategoryDelete:handleRemove Response Failed:',
+          data
+        );
+        notificationBox(data.message, 'error');
+      }
+    } catch (ex) {
+      console.log('ex', ex);
+    }
+  };
+
   render() {
     return (
       <React.Fragment>
-        <h2>Delete</h2>
+        <h2>Detail</h2>
         <h4>Expense Category</h4>
         <h5>Are you sure you want to delete this?</h5>
-        <hr />
+        <Divider />
         {this.state.status === 1
           ? this.renderOnSuccess()
           : this.renderOnFailure()}
-        <Link className="btn btn-link" to="/expense-categories">
+        <Link style={{ marginLeft: 8 }} to="/expense-categories">
           Back to List
         </Link>
       </React.Fragment>
@@ -86,4 +86,4 @@ class ExpenseCategoryDelete extends Component {
   }
 }
 
-export default ExpenseCategoryDelete;
+export default ExpenseCategoryDetail;
