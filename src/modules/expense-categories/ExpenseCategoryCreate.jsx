@@ -22,10 +22,11 @@ class ExpenseCategoryCreate extends Component {
         if (!err) {
           const { data } = await itemService.create(values);
 
-          if (data.status === 'success') {
+          if (data.status === 201) {
+            notificationBox('Item created!', 'success');
             this.props.history.push('/expense-categories');
           } else {
-            if (data.code === 400) {
+            if (data.status === 400) {
               const errors = {};
               Object.keys(data.errors).forEach(key => {
                 errors[key] = {
@@ -58,7 +59,7 @@ class ExpenseCategoryCreate extends Component {
           <Col span={24}>
             <h2>Create</h2>
             <h4>Expense Category</h4>
-            <Link className="btn btn-link" to="/expense-categories">
+            <Link className='btn btn-link' to='/expense-categories'>
               Back to List
             </Link>
             <Divider />
@@ -69,7 +70,7 @@ class ExpenseCategoryCreate extends Component {
           wrapperCol={{ span: 12 }}
           onSubmit={this.handleSubmit}
         >
-          <Form.Item label="Name">
+          <Form.Item label='Name'>
             {getFieldDecorator('name', {
               rules: [
                 { required: true, message: 'This field is required.' },
@@ -82,7 +83,7 @@ class ExpenseCategoryCreate extends Component {
             })(<Input autoFocus />)}
           </Form.Item>
 
-          <Form.Item label="Description">
+          <Form.Item label='Description'>
             {getFieldDecorator('description', {
               rules: [
                 {
@@ -95,13 +96,13 @@ class ExpenseCategoryCreate extends Component {
           </Form.Item>
 
           <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
-            <Button type="primary" htmlType="submit">
+            <Button type='primary' htmlType='submit'>
               Submit
             </Button>
             <Link
-              className="ant-btn"
+              className='ant-btn'
               style={{ marginLeft: 8 }}
-              to="/expense-categories"
+              to='/expense-categories'
             >
               Cancel
             </Link>

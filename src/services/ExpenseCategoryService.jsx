@@ -7,7 +7,9 @@ async function find(params) {
   try {
     let url = `${apiEndpoint}`;
     if (params) url += `?${params}`;
-    return await http.get(url);
+    return await http.get(url, {
+      headers: { 'x-request-count-total': 'true' }
+    });
   } catch (ex) {
     console.log('ExpenseCategoryService:find', ex);
     throw new Error(ex.message);

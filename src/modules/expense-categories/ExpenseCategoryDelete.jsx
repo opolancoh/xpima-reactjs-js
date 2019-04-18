@@ -20,7 +20,7 @@ class ExpenseCategoryDetail extends Component {
     const id = this.props.match.params.id;
     //const result = await this.getData(id);
     const { data } = await itemService.findById(id);
-    if (data.code === 200)
+    if (data.status === 200)
       this.setState({
         status: 1,
         data: data.d
@@ -54,7 +54,8 @@ class ExpenseCategoryDetail extends Component {
     try {
       const id = this.props.match.params.id;
       const { data } = await itemService.remove(id);
-      if (data.status === 'success') {
+      if (data.status === 200) {
+        notificationBox('Item deleted!', 'success');
         this.props.history.push('/expense-categories');
       } else {
         console.log(

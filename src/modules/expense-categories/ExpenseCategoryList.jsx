@@ -168,7 +168,7 @@ class ExpenseCategoryList extends Component {
     console.log('queryString', queryString);
 
     const { data } = await itemService.find(queryString);
-    if (data.code === 200) {
+    if (data.status === 200) {
       console.log(data.d);
       const d = data.d.map(item => {
         return {
