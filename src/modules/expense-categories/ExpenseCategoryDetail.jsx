@@ -19,7 +19,7 @@ class ExpenseCategoryDetail extends Component {
     const id = this.props.match.params.id;
     //const result = await this.getData(id);
     const { data } = await itemService.findById(id);
-    if (data.code === 200)
+    if (data.status === 200)
       this.setState({
         status: 1,
         data: data.d
