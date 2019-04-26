@@ -21,7 +21,7 @@ class ExpenseCategoryEdit extends Component {
     try {
       const id = this.props.match.params.id;
       const { data } = await itemService.findById(id, `select=name,category`);
-      if (data.status === 200) {
+      if (data.code === 200) {
         const { setFieldsValue } = this.props.form;
         const formData = {};
         delete data.d._id;
@@ -47,10 +47,10 @@ class ExpenseCategoryEdit extends Component {
           if (!values.description) delete values.description;
 
           const { data } = await itemService.update(id, values);
-          if (data.status === 200) {
+          if (data.code === 200) {
             notificationBox('Item updated!', 'success');
             this.props.history.push('/expense-categories');
-          } else if (data.status === 400) {
+          } else if (data.code === 400) {
             const errors = {};
             Object.keys(data.errors).forEach(key => {
               errors[key] = {

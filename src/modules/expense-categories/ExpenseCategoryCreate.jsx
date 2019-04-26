@@ -22,11 +22,11 @@ class ExpenseCategoryCreate extends Component {
         if (!err) {
           const { data } = await itemService.create(values);
 
-          if (data.status === 201) {
+          if (data.code === 201) {
             notificationBox('Item created!', 'success');
             this.props.history.push('/expense-categories');
           } else {
-            if (data.status === 400) {
+            if (data.code === 400) {
               const errors = {};
               Object.keys(data.errors).forEach(key => {
                 errors[key] = {
