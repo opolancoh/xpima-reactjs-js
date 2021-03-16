@@ -6,7 +6,7 @@
   "private": true,
   "dependencies": {
     "antd": "^4.6.3",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "express": "^4.17.1",
     "joi-browser": "^13.4.0",
     "lodash": "^4.17.19",
